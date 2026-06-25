@@ -1,58 +1,238 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# LogStream - Universal Log Analyzer
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+LogStream is a lightweight web application built with Laravel 11 that allows users to upload or paste log files and instantly visualize log severity levels.
 
-## About Laravel
+The application supports multiple log formats, automatically detects log types, parses entries, and generates interactive charts to help developers quickly understand what's happening inside their systems.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Log Upload
 
-## Learning Laravel
+* Upload log files directly from your computer
+* Supports:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+  * `.log`
+  * `.txt`
+  * `.out`
+  * `.err`
+* Maximum file size: 20 MB
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Paste Logs Directly
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+* Paste terminal output or log snippets
+* Instant analysis without creating a file
 
-## Agentic Development
+### Multi-Format Log Detection
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+Supported formats include:
+
+* Laravel / Monolog
+* Apache Error Logs
+* Apache Access Logs
+* Nginx Logs
+* Python Logging / Django
+* Node.js / Winston
+* Node.js JSON Logs
+* Syslog
+* Ruby on Rails Logs
+* Docker Logs
+* Generic Severity-Based Logs
+
+### Severity Analysis
+
+Automatically detects and categorizes:
+
+* EMERGENCY
+* ALERT
+* CRITICAL
+* ERROR
+* WARNING
+* NOTICE
+* INFO
+* DEBUG
+
+### Interactive Dashboard
+
+* Severity breakdown charts
+* Log statistics
+* Match rate calculation
+* Format detection
+* Filterable log stream
+* Dark/Light mode
+
+### User Experience Features
+
+* Drag and drop uploads
+* Keyboard-friendly navigation
+* Analyze another log button
+* Large-line protection
+* Responsive design
+
+---
+
+## Tech Stack
+
+### Backend
+
+* Laravel 11
+* PHP 8.2+
+
+### Frontend
+
+* Blade Templates
+* Tailwind CSS (CDN)
+* Chart.js
+
+### Storage
+
+* Session-based storage
+* No database required
+
+---
+
+## Why No Database?
+
+LogStream is intentionally designed as a lightweight monolithic application.
+
+Benefits:
+
+* Simple setup
+* Fast deployment
+* No migrations
+* No database maintenance
+* Easy to run locally or in the cloud
+
+---
+
+## Installation
+
+### Clone Repository
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone https://github.com/CyrilQhetso/logstream-analyzer.git
+cd logstream-analyzer
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### Install Dependencies
 
-## Contributing
+```bash
+composer install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Create Environment File
 
-## Code of Conduct
+```bash
+cp .env.example .env
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Generate Application Key
 
-## Security Vulnerabilities
+```bash
+php artisan key:generate
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Start Development Server
 
-## License
+```bash
+php artisan serve
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Visit:
+
+```text
+http://localhost:8000
+```
+
+---
+
+## Project Structure
+
+```text
+app/
+ └── Http/
+     └── Controllers/
+         └── LogController.php
+
+resources/
+ └── views/
+     └── dashboard.blade.php
+
+routes/
+ └── web.php
+```
+
+The application intentionally keeps the architecture simple:
+
+* One Controller
+* One Blade View
+* No Database
+* No Authentication
+
+---
+
+## Example Log Formats
+
+### Laravel
+
+```text
+[2026-06-20 08:00:01] production.ERROR: Database connection failed
+```
+
+### Apache Error Log
+
+```text
+[Wed Jun 20 08:05:00.123456 2026] [error] Failed to connect to backend service
+```
+
+### Python
+
+```text
+2026-06-20 08:15:20,789 ERROR auth.database Database query failed
+```
+
+### Node.js
+
+```text
+2026-06-20T08:20:20.000Z [ERROR]: Unhandled promise rejection
+```
+
+### JSON Logs
+
+```json
+{
+  "level": "error",
+  "message": "Failed to process payment",
+  "timestamp": "2026-06-20T08:25:20.000Z"
+}
+```
+
+## Screenshots
+
+### Upload Interface
+<img width="1913" height="958" alt="Screenshot 2026-06-25 110725" src="https://github.com/user-attachments/assets/76d26c26-1329-4e32-945a-fe0358892efd" />
+
+
+### Analysis Dashboard
+<img width="1917" height="965" alt="Screenshot 2026-06-25 110759" src="https://github.com/user-attachments/assets/ba07e045-056f-4610-94d1-3fc1856a7dcc" />
+<img width="1913" height="967" alt="Screenshot 2026-06-25 110814" src="https://github.com/user-attachments/assets/ccb2565f-5a8b-4061-94da-3b731fe6ef70" />
+
+
+
+---
+
+## Deployment
+
+This project can be deployed on:
+
+* Render
+
+## Author
+
+Developed by Tsoelopele Cyril Qhetso
+
+Software Engineer | Full Stack Developer
+
+live demo:
+[https://github.com/YOUR_USERNAME](https://logstream-analyzer.onrender.com/)
