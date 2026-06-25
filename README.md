@@ -235,4 +235,4 @@ Developed by Tsoelopele Cyril Qhetso
 Software Engineer | Full Stack Developer
 
 live demo:
-[https://github.com/YOUR_USERNAME](https://logstream-analyzer.onrender.com/)
+https://logstream-analyzer.onrender.com/
